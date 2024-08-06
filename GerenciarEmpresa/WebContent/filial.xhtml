@@ -32,45 +32,44 @@
             <h:outputLabel for="cep" value="CEP:" />
             <h:inputText id="cep" value="#{filialBean.filial.endereco.cep}" required="true" />
 
-            <h:commandButton value="Salvar" action="#{filialBean.salvar}" />
-            <h:commandButton value="Cancelar" action="#{filialBean.cancelar}" immediate="true" />
+            <h:commandButton value="Salvar" action="#{filialBean.gravarFilial()}" rendered="#{!filialBean.edicao}"/>
+            <h:commandButton value="atualizar" action="#{filialBean.editarFilial()}" rendered="#{filialBean.edicao}" />
         </h:panelGrid>
     </h:form>
 
     <!-- Tabela para listar as filiais -->
-    <h:dataTable value="#{filialBean.filiais}" var="filial" border="1">
+    <h:dataTable value="#{filialBean.listaFilial}" var="filial" border="1">
         <h:column>
             <f:facet name="header">Nome</f:facet>
-            #{filial.nome}
+            <h:outputText value="#{filial.nome}" />
         </h:column>
         <h:column>
             <f:facet name="header">CNPJ</f:facet>
-            #{filial.cnpj}
+            <h:outputText value="#{filial.cnpj}" />
         </h:column>
         <h:column>
             <f:facet name="header">Rua</f:facet>
-            #{filial.endereco.rua}
+            <h:outputText value="#{filial.endereco.rua}" />
         </h:column>
         <h:column>
             <f:facet name="header">Número</f:facet>
-            #{filial.endereco.numero}
+            <h:outputText value="#{filial.endereco.numero}" />
         </h:column>
         <h:column>
             <f:facet name="header">Bairro</f:facet>
-            #{filial.endereco.bairro}
+            <h:outputText value="#{filial.endereco.bairro}" />
         </h:column>
         <h:column>
             <f:facet name="header">Cidade</f:facet>
-            #{filial.endereco.cidade}
+            <h:outputText value="#{filial.endereco.cidade}" />
         </h:column>
         <h:column>
             <f:facet name="header">CEP</f:facet>
-            #{filial.endereco.cep}
+            <h:outputText value="#{filial.endereco.cep}" />
         </h:column>
         <h:column>
             <f:facet name="header">Ações</f:facet>
-            <h:commandButton value="Editar" action="#{filialBean.editar(filial)}" />
-            <h:commandButton value="Excluir" action="#{filialBean.excluir(filial)}" />
+            <h:commandButton value="Editar" action="#{filialBean.editarFilial()}" />
         </h:column>
     </h:dataTable>
 </body> 

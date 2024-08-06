@@ -15,12 +15,14 @@ public class Filial {
 	private Endereco endereco;
 
 	public Filial() {
-
+		this.endereco = new Endereco();
 	}
 
-	public Filial(String nome, String cnpj) {
+	public Filial(String nome, String cnpj, Endereco endereco) {
 		this.nome = nome;
 		this.cnpj = cnpj;
+		this.endereco = endereco;
+		
 	}
 
 	public String getNome() {
@@ -37,6 +39,14 @@ public class Filial {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 }
