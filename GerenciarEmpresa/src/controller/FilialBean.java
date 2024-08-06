@@ -23,20 +23,20 @@ public class FilialBean {
 	@EJB
 	private EnderecoService enderecoService;
 
-	private Filial filial;
-	private Endereco endereco;
+	private Filial filial = new Filial();
+	private Endereco endereco = new Endereco();;
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private Boolean edicao = false;
 
 	@PostConstruct
 	public void inicializar() {
 		atualizarLista();
-		filial = new Filial();
-		endereco = new Endereco();
+		
 	}
 
 	private void atualizarLista() {
 		listaFilial = filialService.listar();
+		
 	}
 
 	public void gravarFilial() {

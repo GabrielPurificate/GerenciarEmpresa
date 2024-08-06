@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 public class Filial {
 	@Id
 	@GeneratedValue
+	private Long id;
 	private String nome;
 	private String cnpj;
 	@OneToOne
@@ -18,7 +19,8 @@ public class Filial {
 		this.endereco = new Endereco();
 	}
 
-	public Filial(String nome, String cnpj, Endereco endereco) {
+	public Filial(Long id, String nome, String cnpj, Endereco endereco) {
+		this.id = id;
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
@@ -49,4 +51,13 @@ public class Filial {
 		this.endereco = endereco;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
 }

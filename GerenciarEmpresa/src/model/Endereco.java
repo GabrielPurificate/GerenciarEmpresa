@@ -25,6 +25,7 @@ public class Endereco {
 	}
 
 	public Endereco() {
+		
 	}
 
 	// Getters e Setters
