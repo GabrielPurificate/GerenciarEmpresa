@@ -5,9 +5,73 @@
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head>
-	<title>outra tela</title>
+	<title>Gerenciar Filial</title>
 </h:head> 
 <body> 
+    <!-- Formulário para cadastrar ou editar uma filial -->
+    <h:form id="filialForm">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nome" value="Nome da Filial:" />
+            <h:inputText id="nome" value="#{filialBean.filial.nome}" required="true" />
 
+            <h:outputLabel for="cnpj" value="CNPJ:" />
+            <h:inputText id="cnpj" value="#{filialBean.filial.cnpj}" required="true" />
+
+            <h:outputLabel for="rua" value="Rua:" />
+            <h:inputText id="rua" value="#{filialBean.filial.endereco.rua}" required="true" />
+
+            <h:outputLabel for="numero" value="Número:" />
+            <h:inputText id="numero" value="#{filialBean.filial.endereco.numero}" required="true" />
+
+            <h:outputLabel for="bairro" value="Bairro:" />
+            <h:inputText id="bairro" value="#{filialBean.filial.endereco.bairro}" required="true" />
+
+            <h:outputLabel for="cidade" value="Cidade:" />
+            <h:inputText id="cidade" value="#{filialBean.filial.endereco.cidade}" required="true" />
+
+            <h:outputLabel for="cep" value="CEP:" />
+            <h:inputText id="cep" value="#{filialBean.filial.endereco.cep}" required="true" />
+
+            <h:commandButton value="Salvar" action="#{filialBean.salvar}" />
+            <h:commandButton value="Cancelar" action="#{filialBean.cancelar}" immediate="true" />
+        </h:panelGrid>
+    </h:form>
+
+    <!-- Tabela para listar as filiais -->
+    <h:dataTable value="#{filialBean.filiais}" var="filial" border="1">
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{filial.nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">CNPJ</f:facet>
+            #{filial.cnpj}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Rua</f:facet>
+            #{filial.endereco.rua}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Número</f:facet>
+            #{filial.endereco.numero}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Bairro</f:facet>
+            #{filial.endereco.bairro}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Cidade</f:facet>
+            #{filial.endereco.cidade}
+        </h:column>
+        <h:column>
+            <f:facet name="header">CEP</f:facet>
+            #{filial.endereco.cep}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Ações</f:facet>
+            <h:commandButton value="Editar" action="#{filialBean.editar(filial)}" />
+            <h:commandButton value="Excluir" action="#{filialBean.excluir(filial)}" />
+        </h:column>
+    </h:dataTable>
 </body> 
 </html>

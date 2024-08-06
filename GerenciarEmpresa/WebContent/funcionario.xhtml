@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>Gerenciar Funcionários</title>
+</h:head> 
+<body> 
+	<!-- Formulário para cadastrar ou editar um funcionário -->
+    <h:form id="funcionarioForm">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="nome" value="Nome do Funcionário:" />
+            <h:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" required="true" />
+
+            <h:outputLabel for="cpf" value="CPF:" />
+            <h:inputText id="cpf" value="#{funcionarioBean.funcionario.cpf}" required="true" />
+
+            <h:outputLabel for="telefone" value="Telefone:" />
+            <h:inputText id="telefone" value="#{funcionarioBean.funcionario.telefone}" required="true" />
+
+            <h:outputLabel for="rua" value="Rua:" />
+            <h:inputText id="rua" value="#{funcionarioBean.funcionario.endereco.rua}" required="true" />
+
+            <h:outputLabel for="numero" value="Número:" />
+            <h:inputText id="numero" value="#{funcionarioBean.funcionario.endereco.numero}" required="true" />
+
+            <h:outputLabel for="bairro" value="Bairro:" />
+            <h:inputText id="bairro" value="#{funcionarioBean.funcionario.endereco.bairro}" required="true" />
+
+            <h:outputLabel for="cidade" value="Cidade:" />
+            <h:inputText id="cidade" value="#{funcionarioBean.funcionario.endereco.cidade}" required="true" />
+
+            <h:outputLabel for="cep" value="CEP:" />
+            <h:inputText id="cep" value="#{funcionarioBean.funcionario.endereco.cep}" required="true" />
+
+            <h:outputLabel for="filial" value="Filial:" />
+            <h:selectOneMenu id="filial" value="#{funcionarioBean.funcionario.filial}" required="true">
+                <f:selectItems value="#{funcionarioBean.filiais}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome} - #{filial.endereco.cidade}" />
+            </h:selectOneMenu>
+
+            <h:commandButton value="Salvar" action="#{funcionarioBean.salvar}" />
+            <h:commandButton value="Cancelar" action="#{funcionarioBean.cancelar}" immediate="true" />
+        </h:panelGrid>
+    </h:form>
+
+    <!-- Tabela para listar os funcionários -->
+    <h:dataTable value="#{funcionarioBean.funcionarios}" var="funcionario" border="1">
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{funcionario.nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">CPF</f:facet>
+            #{funcionario.cpf}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Telefone</f:facet>
+            #{funcionario.telefone}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Rua</f:facet>
+            #{funcionario.endereco.rua}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Número</f:facet>
+            #{funcionario.endereco.numero}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Bairro</f:facet>
+            #{funcionario.endereco.bairro}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Cidade</f:facet>
+            #{funcionario.endereco.cidade}
+        </h:column>
+        <h:column>
+            <f:facet name="header">CEP</f:facet>
+            #{funcionario.endereco.cep}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Filial</f:facet>
+            #{funcionario.filial.nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Cidade da Filial</f:facet>
+            #{funcionario.filial.endereco.cidade}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Ações</f:facet>
+            <h:commandButton value="Excluir" action="#{funcionarioBean.excluir(funcionario)}" />
+        </h:column>
+    </h:dataTable>
+</body> 
+</html>

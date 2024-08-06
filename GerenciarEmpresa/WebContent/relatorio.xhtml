@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<!-- Formulário de Filtro -->
+    <h:form id="relatorioForm">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="filial" value="Filial:" />
+            <h:selectOneMenu id="filial" value="#{relatorioBean.filialSelecionada}">
+                <f:selectItem itemLabel="Todas as Filiais" itemValue="" />
+                <f:selectItems value="#{relatorioBean.filiais}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome}" />
+            </h:selectOneMenu>
+
+            <h:outputLabel for="salarioInicial" value="Salário Inicial:" />
+            <h:inputText id="salarioInicial" value="#{relatorioBean.salarioInicial}">
+                <f:convertNumber currencySymbol="R$" locale="pt_BR" />
+            </h:inputText>
+
+            <h:outputLabel for="salarioFinal" value="Salário Final:" />
+            <h:inputText id="salarioFinal" value="#{relatorioBean.salarioFinal}">
+                <f:convertNumber currencySymbol="R$" locale="pt_BR" />
+            </h:inputText>
+
+            <h:commandButton value="Filtrar" action="#{relatorioBean.filtrar}" />
+        </h:panelGrid>
+    </h:form>
+
+    <!-- Tabela de Resultados -->
+    <h:dataTable value="#{relatorioBean.funcionariosFiltrados}" var="funcionario" border="1">
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{funcionario.nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">CPF</f:facet>
+            #{funcionario.cpf}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Telefone</f:facet>
+            #{funcionario.telefone}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Salário</f:facet>
+            <h:outputText value="#{funcionario.salario}">
+                <f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Filial</f:facet>
+            #{funcionario.filial.nome}
+        </h:column>
+    </h:dataTable>
+</body> 
+</html>
