@@ -15,6 +15,7 @@ import model.Filial;
 import service.EnderecoService;
 import service.FilialService;
 
+@ViewScoped
 @ManagedBean
 public class FilialBean {
 	@EJB
@@ -31,7 +32,6 @@ public class FilialBean {
 	public void inicializar() {
 		limparFormulario();
 		atualizarLista();
-
 	}
 
 	private void atualizarLista() {
@@ -46,19 +46,20 @@ public class FilialBean {
 
 		limparFormulario();
 
-		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Filial Gravado com Sucesso!"));
+		FacesContext.getCurrentInstance().addMessage("", 
+				new FacesMessage("Filial Gravado com Sucesso!"));
 		atualizarLista();
 	}
 
-	public void editarFilial() {
+	public void editarFilial() {	
 		enderecoService.editar(endereco);
 		filial.setEndereco(endereco);
 		filialService.editar(filial);
 
-		limparFormulario();
-
-		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Filial editado com Sucesso!"));
+		FacesContext.getCurrentInstance().addMessage("", 
+				new FacesMessage("Filial editado com Sucesso!"));
 		atualizarLista();
+		limparFormulario();
 	}
 
 	public void carregarFilial(Filial f) {

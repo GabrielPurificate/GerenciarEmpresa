@@ -48,43 +48,45 @@
 
 	<h:messages />
 	<!-- Tabela para listar as filiais -->
-	<h:dataTable value="#{filialBean.listaFilial}" var="filAtual"
-		border="1">
-		<h:column>
-			<f:facet name="header">Nome</f:facet>
-			<h:outputText value="#{filAtual.nome}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">CNPJ</f:facet>
-			<h:outputText value="#{filAtual.cnpj}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Rua</f:facet>
-			<h:outputText value="#{filAtual.endereco.rua}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Número</f:facet>
-			<h:outputText value="#{filAtual.endereco.numero}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Bairro</f:facet>
-			<h:outputText value="#{filAtual.endereco.bairro}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Cidade</f:facet>
-			<h:outputText value="#{filAtual.endereco.cidade}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">CEP</f:facet>
-			<h:outputText value="#{filAtual.endereco.cep}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Ações</f:facet>
-			<h:commandButton value="Editar"
-				action="#{filialBean.carregarFilial(filAtual)}" />
-			<h:commandButton value="Apagar"
-				action="#{filialBean.apagarFilial(filAtual)}" />
-		</h:column>
-	</h:dataTable>
+	<h:form>
+		<h:dataTable value="#{filialBean.listaFilial}" var="filAtual" border="1">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{filAtual.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CNPJ</f:facet>
+				<h:outputText value="#{filAtual.cnpj}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Rua</f:facet>
+				<h:outputText value="#{filAtual.endereco.rua}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Número</f:facet>
+				<h:outputText value="#{filAtual.endereco.numero}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Bairro</f:facet>
+				<h:outputText value="#{filAtual.endereco.bairro}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cidade</f:facet>
+				<h:outputText value="#{filAtual.endereco.cidade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CEP</f:facet>
+				<h:outputText value="#{filAtual.endereco.cep}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandButton value="Editar"
+					action="#{filialBean.carregarFilial(filAtual)}" />
+				<h:commandButton value="Apagar"
+					action="#{filialBean.apagarFilial(filAtual)}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	
 </body>
 </html>
