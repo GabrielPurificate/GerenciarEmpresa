@@ -64,13 +64,15 @@ public class FilialBean {
 
 	public void carregarFilial(Filial f) {
 		filial = f;
+		endereco = enderecoService.obterPorId(f.getEndereco().getId());
 		edicao = true;
 	}
 
 	public void apagarFilial(Filial f) {
-		// enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
 		filialService.remover(f);
+		enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
 		atualizarLista();
+		limparFormulario();
 	}
 	
     private void limparFormulario() {
