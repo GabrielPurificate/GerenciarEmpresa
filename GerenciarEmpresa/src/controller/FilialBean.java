@@ -24,7 +24,7 @@ public class FilialBean {
 	private EnderecoService enderecoService;
 
 	private Filial filial = new Filial();
-	private Endereco endereco = new Endereco();;
+	private Endereco endereco = new Endereco();
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private Boolean edicao = false;
 
