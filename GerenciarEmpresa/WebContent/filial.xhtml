@@ -43,11 +43,13 @@
 			rendered="#{!filialBean.edicao}" />
 		<h:commandButton value="atualizar"
 			action="#{filialBean.editarFilial()}" rendered="#{filialBean.edicao}" />
+		<h:button outcome="index" value="Voltar" />
 	</h:form>
 
 	<h:messages />
 	<!-- Tabela para listar as filiais -->
-	<h:dataTable value="#{filialBean.listaFilial}" var="filAtual" border="1">
+	<h:dataTable value="#{filialBean.listaFilial}" var="filAtual"
+		border="1">
 		<h:column>
 			<f:facet name="header">Nome</f:facet>
 			<h:outputText value="#{filAtual.nome}" />
