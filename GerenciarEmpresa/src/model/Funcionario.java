@@ -22,9 +22,8 @@ public class Funcionario {
 	@OneToOne
 	private Endereco endereco;
 
-	public Funcionario(Long id, String nome, Integer idade, String cpf, double salario, Filial filial,
+	public Funcionario(String nome, Integer idade, String cpf, double salario, Filial filial,
 			Endereco endereco) {
-		this.id = id;
 		this.nome = nome;
 		this.idade = idade;
 		this.cpf = cpf;

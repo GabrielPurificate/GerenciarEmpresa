@@ -19,8 +19,7 @@ public class Filial {
 		this.endereco = new Endereco();
 	}
 
-	public Filial(Long id, String nome, String cnpj, Endereco endereco) {
-		this.id = id;
+	public Filial(String nome, String cnpj, Endereco endereco) {
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.endereco = endereco;

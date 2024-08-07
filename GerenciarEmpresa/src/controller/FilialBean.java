@@ -12,8 +12,8 @@ import javax.faces.context.FacesContext;
 
 import model.Endereco;
 import model.Filial;
-import services.EnderecoService;
-import services.FilialService;
+import service.EnderecoService;
+import service.FilialService;
 
 @ViewScoped
 @ManagedBean
@@ -23,26 +23,29 @@ public class FilialBean {
 	@EJB
 	private EnderecoService enderecoService;
 
-	private Filial filial = new Filial();
-	private Endereco endereco = new Endereco();
+	private Filial filial;
+	private Endereco endereco;
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private Boolean edicao = false;
 
 	@PostConstruct
 	public void inicializar() {
+		filial = new Filial();
+		endereco = new Endereco();
 		atualizarLista();
-		
+
 	}
 
 	private void atualizarLista() {
 		listaFilial = filialService.listar();
-		
+
 	}
 
 	public void gravarFilial() {
 		enderecoService.criar(endereco);
 		filial.setEndereco(endereco);
 		filialService.criar(filial);
+
 		filial = new Filial();
 		endereco = new Endereco();
 
@@ -54,6 +57,7 @@ public class FilialBean {
 		enderecoService.editar(endereco);
 		filial.setEndereco(endereco);
 		filialService.editar(filial);
+
 		filial = new Filial();
 		endereco = new Endereco();
 
@@ -64,6 +68,12 @@ public class FilialBean {
 	public void carregarFilial(Filial f) {
 		filial = f;
 		edicao = true;
+	}
+
+	public void apagarFilial(Filial f) {
+		// enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
+		filialService.remover(f);
+		atualizarLista();
 	}
 
 	public FilialService getFilialService() {

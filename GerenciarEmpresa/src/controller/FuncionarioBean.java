@@ -13,9 +13,9 @@ import javax.faces.context.FacesContext;
 import model.Endereco;
 import model.Filial;
 import model.Funcionario;
-import services.EnderecoService;
-import services.FilialService;
-import services.FuncionarioService;
+import service.EnderecoService;
+import service.FilialService;
+import service.FuncionarioService;
 
 @ViewScoped
 @ManagedBean

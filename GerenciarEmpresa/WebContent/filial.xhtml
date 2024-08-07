@@ -20,68 +20,68 @@
 				required="true" />
 
 			<h:outputLabel for="rua" value="Rua:" />
-			<h:inputText id="rua" value="#{filialBean.filial.endereco.rua}"
+			<h:inputText id="rua" value="#{filialBean.endereco.rua}"
 				required="true" />
 
 			<h:outputLabel for="numero" value="Número:" />
-			<h:inputText id="numero" value="#{filialBean.filial.endereco.numero}"
+			<h:inputText id="numero" value="#{filialBean.endereco.numero}"
 				required="true" />
 
 			<h:outputLabel for="bairro" value="Bairro:" />
-			<h:inputText id="bairro" value="#{filialBean.filial.endereco.bairro}"
+			<h:inputText id="bairro" value="#{filialBean.endereco.bairro}"
 				required="true" />
 
 			<h:outputLabel for="cidade" value="Cidade:" />
-			<h:inputText id="cidade" value="#{filialBean.filial.endereco.cidade}"
+			<h:inputText id="cidade" value="#{filialBean.endereco.cidade}"
 				required="true" />
 
 			<h:outputLabel for="cep" value="CEP:" />
-			<h:inputText id="cep" value="#{filialBean.filial.endereco.cep}"
+			<h:inputText id="cep" value="#{filialBean.endereco.cep}"
 				required="true" />
-
-			<h:commandButton value="Salvar" action="#{filialBean.gravarFilial()}"
-				rendered="#{!filialBean.edicao}" />
-			<h:commandButton value="atualizar"
-				action="#{filialBean.editarFilial()}"
-				rendered="#{filialBean.edicao}" />
 		</h:panelGrid>
+		<h:commandButton value="Salvar" action="#{filialBean.gravarFilial()}"
+			rendered="#{!filialBean.edicao}" />
+		<h:commandButton value="atualizar"
+			action="#{filialBean.editarFilial()}" rendered="#{filialBean.edicao}" />
 	</h:form>
 
 	<h:messages />
 	<!-- Tabela para listar as filiais -->
-	<h:dataTable value="#{filialBean.listaFilial}" var="filial" border="1">
+	<h:dataTable value="#{filialBean.listaFilial}" var="filAtual" border="1">
 		<h:column>
 			<f:facet name="header">Nome</f:facet>
-			<h:outputText value="#{filial.nome}" />
+			<h:outputText value="#{filAtual.nome}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">CNPJ</f:facet>
-			<h:outputText value="#{filial.cnpj}" />
+			<h:outputText value="#{filAtual.cnpj}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Rua</f:facet>
-			<h:outputText value="#{filial.endereco.rua}" />
+			<h:outputText value="#{filAtual.endereco.rua}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Número</f:facet>
-			<h:outputText value="#{filial.endereco.numero}" />
+			<h:outputText value="#{filAtual.endereco.numero}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Bairro</f:facet>
-			<h:outputText value="#{filial.endereco.bairro}" />
+			<h:outputText value="#{filAtual.endereco.bairro}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Cidade</f:facet>
-			<h:outputText value="#{filial.endereco.cidade}" />
+			<h:outputText value="#{filAtual.endereco.cidade}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">CEP</f:facet>
-			<h:outputText value="#{filial.endereco.cep}" />
+			<h:outputText value="#{filAtual.endereco.cep}" />
 		</h:column>
 		<h:column>
 			<f:facet name="header">Ações</f:facet>
 			<h:commandButton value="Editar"
-				action="#{filialBean.carregarFilial(filial)}" />
+				action="#{filialBean.carregarFilial(filAtual)}" />
+			<h:commandButton value="Apagar"
+				action="#{filialBean.apagarFilial(filAtual)}" />
 		</h:column>
 	</h:dataTable>
 </body>
