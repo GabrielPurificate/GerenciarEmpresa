@@ -10,9 +10,12 @@
     <h:form id="relatorioForm">
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="filial" value="Filial:" />
-            <h:selectOneMenu id="filial" value="#{relatorioBean.filialSelecionada}">
-                <f:selectItem itemLabel="Todas as Filiais" itemValue="" />
-                <f:selectItems value="#{relatorioBean.filiais}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome}" />
+            <h:selectOneMenu id="filial" value="#{funcionarioBean.idFilial}" required="true">
+            
+            	<f:selectItem itemLabel="Todas as Filiais" itemValue="" />
+                <f:selectItems value="#{funcionarioBean.listaFilial}" var="filial"
+                		itemLabel="#{filial.nome}" itemValue="#{filial.id}"/>
+                		
             </h:selectOneMenu>
 
             <h:outputLabel for="salarioInicial" value="Salário Inicial:" />

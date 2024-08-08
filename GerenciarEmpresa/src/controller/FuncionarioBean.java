@@ -29,11 +29,10 @@ public class FuncionarioBean {
 
 	private Funcionario funcionario = new Funcionario();
 	private Endereco endereco = new Endereco();
-	private Filial filial;
 	private Boolean edicao = false;
-
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
+	private Long idFilial=0L;
 
 	@PostConstruct
 	public void inicializar() {
@@ -48,35 +47,35 @@ public class FuncionarioBean {
 	public void gravarFuncionario() {
 		enderecoService.criar(endereco);
 		funcionario.setEndereco(endereco);
-		funcionario.setFilial(filial);
+		Filial f = filialService.obterPorId(idFilial);
+		funcionario.setFilial(f);
 		funcionarioService.criar(funcionario);
-
-		funcionario = new Funcionario();
-		endereco = new Endereco();
-		filial = null;
 
 		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Funcionario criado com Sucesso!"));
 		atualizarLista();
+		
+		funcionario = new Funcionario();
+		endereco = new Endereco();
 	}
 
 	public void editarFuncionario() {
 		enderecoService.editar(endereco);
 		funcionario.setEndereco(endereco);
-		funcionario.setFilial(filial);
+		Filial f = filialService.obterPorId(idFilial);
+		funcionario.setFilial(f);
 		funcionarioService.editar(funcionario);
-
-		funcionario = new Funcionario();
-		endereco = new Endereco();
-		filial = null;
 
 		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Funcionário Editado com Sucesso!"));
 		atualizarLista();
+		
+		funcionario = new Funcionario();
+		endereco = new Endereco();
 	}
 
 	public void carregarFuncionario(Funcionario f) {
 		funcionario = f;
 		endereco = f.getEndereco();
-		filial = f.getFilial();
+		idFilial = funcionario.getFilial().getId();
 		edicao = true;
 	}
 	
@@ -88,7 +87,6 @@ public class FuncionarioBean {
 	}
 	
 	private void limparFormulario() {
-        filial = new Filial();
         endereco = new Endereco();
         edicao = false;
     }
@@ -133,20 +131,20 @@ public class FuncionarioBean {
 		this.endereco = endereco;
 	}
 
-	public Filial getFilial() {
-		return filial;
-	}
-
-	public void setFilial(Filial filial) {
-		this.filial = filial;
-	}
-
 	public Boolean getEdicao() {
 		return edicao;
 	}
 
 	public void setEdicao(Boolean edicao) {
 		this.edicao = edicao;
+	}
+
+	public Long getIdFilial() {
+		return idFilial;
+	}
+
+	public void setIdFilial(Long idFilial) {
+		this.idFilial = idFilial;
 	}
 
 	public List<Filial> getListaFilial() {
