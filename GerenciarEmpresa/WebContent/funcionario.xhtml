@@ -28,41 +28,52 @@
                 <f:selectItems value="#{funcionarioBean.filial}" var="filial" itemValue="#{filial}" itemLabel="#{filial.nome} - #{filial.endereco.cidade}" />
             </h:selectOneMenu>
 
-            <h:commandButton value="Salvar" action="#{funcionarioBean.salvar}" />
+            <h:commandButton value="Salvar"
+            	 action="#{funcionarioBean.gravarFuncionario()}" rendered="#{!funcionarioBean.edicao}"/>
+           	<h:commandButton value="Atualizar"
+				action="#{funcionarioBean.editarFuncionario()}" rendered="#{funcionarioBean.edicao}" />
             <h:button outcome="index" value="Voltar" />
         </h:panelGrid>
     </h:form>
-
-    <!-- Tabela para listar os funcionários -->
-    <h:dataTable value="#{funcionarioBean.listaFuncionario}" var="funcionario" border="1">
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{funcionario.nome}
-        </h:column>
-        <h:column>
-            <f:facet name="header">idade</f:facet>
-            #{funcionario.idade}
-        </h:column>
-        <h:column>
-            <f:facet name="header">CPF</f:facet>
-            #{funcionario.cpf}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Salario</f:facet>
-            #{funcionario.salario}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Filial</f:facet>
-            #{funcionario.filial.nome}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Cidade da Filial</f:facet>
-            #{funcionario.filial.endereco.cidade}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Ações</f:facet>
-            <h:commandButton value="Excluir" action="#{funcionarioBean.excluir(funcionario)}" />
-        </h:column>
-    </h:dataTable>
+    
+    <h:messages />
+    
+	<h:form>
+		<!-- Tabela para listar os funcionários -->
+    	<h:dataTable value="#{funcionarioBean.listaFuncionario}" var="funcAtual" border="1">
+	        <h:column>
+	            <f:facet name="header">Nome</f:facet>
+	            #{funcionario.nome}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">idade</f:facet>
+	            #{funcionario.idade}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">CPF</f:facet>
+	            #{funcionario.cpf}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Salario</f:facet>
+	            #{funcionario.salario}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Filial</f:facet>
+	            #{funcionario.filial.nome}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Cidade da Filial</f:facet>
+	            #{funcionario.filial.endereco.cidade}
+	        </h:column>
+	        <h:column>
+	            <f:facet name="header">Ações</f:facet>
+	            <h:commandButton value="Editar"
+						action="#{funcionarioBean.carregarFuncionario(funcAtual)}" />
+	            <h:commandButton value="Excluir"
+	            		action="#{funcionarioBean.apagarFuncionario()}" />
+	        </h:column>
+    	</h:dataTable>
+	</h:form>
+    
 </body> 
 </html>

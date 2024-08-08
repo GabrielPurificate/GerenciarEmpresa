@@ -79,6 +79,19 @@ public class FuncionarioBean {
 		filial = f.getFilial();
 		edicao = true;
 	}
+	
+	public void apagarFuncionario(Funcionario f) {
+		funcionarioService.remover(f);
+		enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
+		atualizarLista();
+		limparFormulario();
+	}
+	
+	private void limparFormulario() {
+        filial = new Filial();
+        endereco = new Endereco();
+        edicao = false;
+    }
 
 	public FuncionarioService getFuncionarioService() {
 		return funcionarioService;
