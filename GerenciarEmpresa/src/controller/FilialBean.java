@@ -40,7 +40,9 @@ public class FilialBean {
 	}
 
 	public void gravarFilial() {
+		//String cnpjFormatado = formatarCNPJ(filial.getCnpj());
 		enderecoService.criar(endereco);
+		filial.setCnpj(formatarCNPJ(filial.getCnpj()));
 		filial.setEndereco(endereco);
 		filialService.criar(filial);
 
@@ -52,7 +54,9 @@ public class FilialBean {
 	}
 
 	public void editarFilial() {	
+		//String cnpjFormatado = formatarCNPJ(filial.getCnpj());
 		enderecoService.editar(endereco);
+		filial.setCnpj(formatarCNPJ(filial.getCnpj()));
 		filial.setEndereco(endereco);
 		filialService.editar(filial);
 
@@ -79,6 +83,12 @@ public class FilialBean {
         filial = new Filial();
         endereco = new Endereco();
         edicao = false;
+    }
+    
+    public String formatarCNPJ(String cnpj) {
+        cnpj = cnpj.replaceAll("[^0-9]", "");
+
+        return cnpj.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
     }
 
 	public FilialService getFilialService() {

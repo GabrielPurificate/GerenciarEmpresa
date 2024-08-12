@@ -17,7 +17,7 @@
 
 			<h:outputLabel for="cnpj" value="CNPJ:" />
 			<h:inputText id="cnpj" value="#{filialBean.filial.cnpj}"
-				required="true" />
+				required="true" maxlength="18"/>
 
 			<h:outputLabel for="rua" value="Rua:" />
 			<h:inputText id="rua" value="#{filialBean.endereco.rua}"
@@ -38,18 +38,21 @@
 			<h:outputLabel for="cep" value="CEP:" />
 			<h:inputText id="cep" value="#{filialBean.endereco.cep}"
 				required="true" />
+			<h:commandButton value="Salvar" action="#{filialBean.gravarFilial()}"
+				rendered="#{!filialBean.edicao}" />
+			<h:commandButton value="atualizar"
+				action="#{filialBean.editarFilial()}"
+				rendered="#{filialBean.edicao}" />
+			<h:button outcome="index" value="Voltar" />
 		</h:panelGrid>
-		<h:commandButton value="Salvar" action="#{filialBean.gravarFilial()}"
-			rendered="#{!filialBean.edicao}" />
-		<h:commandButton value="atualizar"
-			action="#{filialBean.editarFilial()}" rendered="#{filialBean.edicao}" />
-		<h:button outcome="index" value="Voltar" />
+
 	</h:form>
 
 	<h:messages />
 	<!-- Tabela para listar as filiais -->
 	<h:form>
-		<h:dataTable value="#{filialBean.listaFilial}" var="filAtual" border="1">
+		<h:dataTable value="#{filialBean.listaFilial}" var="filAtual"
+			border="1">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
 				<h:outputText value="#{filAtual.nome}" />
@@ -87,6 +90,6 @@
 			</h:column>
 		</h:dataTable>
 	</h:form>
-	
+
 </body>
 </html>

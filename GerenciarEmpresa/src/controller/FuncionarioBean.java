@@ -46,6 +46,7 @@ public class FuncionarioBean {
 
 	public void gravarFuncionario() {
 		enderecoService.criar(endereco);
+		funcionario.setCpf(formatarCPF(funcionario.getCpf()));
 		funcionario.setEndereco(endereco);
 		Filial f = filialService.obterPorId(idFilial);
 		funcionario.setFilial(f);
@@ -60,6 +61,7 @@ public class FuncionarioBean {
 
 	public void editarFuncionario() {
 		enderecoService.editar(endereco);
+		funcionario.setCpf(formatarCPF(funcionario.getCpf()));
 		funcionario.setEndereco(endereco);
 		Filial f = filialService.obterPorId(idFilial);
 		funcionario.setFilial(f);
@@ -85,6 +87,13 @@ public class FuncionarioBean {
 		atualizarLista();
 		limparFormulario();
 	}
+	
+	public String formatarCPF(String cpf) {
+	    cpf = cpf.replaceAll("[^0-9]", "");
+
+	    return cpf.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+	}
+
 	
 	private void limparFormulario() {
         endereco = new Endereco();
