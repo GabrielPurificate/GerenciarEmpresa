@@ -35,23 +35,23 @@ public class RelatorioBean {
     }
 	
 	public void Filtrar() {
-	    if (idFilial != null && idFilial > 0) {
+		boolean filtroPorFilial = (idFilial != null && idFilial > 0);
+	    boolean filtroPorSalario = (salarioInicial > 0 || salarioFinal > 0);
+
+	    if (filtroPorFilial && filtroPorSalario) {
 	        Filial filial = filialService.obterPorId(idFilial);
-	        if (salarioInicial > 0 && salarioFinal > 0) {
-	            // Filtra por filial e faixa salarial
-	            listaFuncionarios = funcionarioService.listarFuncionariosPorAmbos(filial, salarioInicial, salarioFinal);
-	        } else {
-	            // Filtra apenas por filial
-	            listaFuncionarios = funcionarioService.listarFuncionarioPorFilial(filial);
-	        }
+	        listaFuncionarios = funcionarioService.listarFuncionariosPorAmbos(filial, salarioInicial, salarioFinal);
+	        
+	    } else if (filtroPorFilial) {
+	        Filial filial = filialService.obterPorId(idFilial);
+	        listaFuncionarios = funcionarioService.listarFuncionarioPorFilial(filial);
+	        
+	    } else if (filtroPorSalario) {
+	        listaFuncionarios = funcionarioService.listarFuncionariosPorSalario(salarioInicial, salarioFinal);
+	        
 	    } else {
-	        if (salarioInicial > 0 && salarioFinal > 0) {
-	            // Filtra apenas por faixa salarial
-	            listaFuncionarios = funcionarioService.listarFuncionariosPorSalario(salarioInicial, salarioFinal);
-	        } else {
-	            // Opcional: Se não houver filtros aplicados, você pode listar todos os funcionários ou uma lista vazia
-	            listaFuncionarios = funcionarioService.listar(); // Se você tiver um método para listar todos os funcionários
-	        }
+	        listaFuncionarios = funcionarioService.listar();
+	        
 	    }
 	}
 
