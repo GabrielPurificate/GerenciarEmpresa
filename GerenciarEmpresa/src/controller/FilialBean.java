@@ -40,56 +40,71 @@ public class FilialBean {
 	}
 
 	public void gravarFilial() {
+		if(formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
+			return;
+		}
+		
+		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.criar(endereco);
-		filial.setCnpj(formatarCNPJ(filial.getCnpj()));
+		filial.setCnpj(formatarEValidarCNPJ(filial.getCnpj()));
 		filial.setEndereco(endereco);
 		filialService.criar(filial);
 
 		limparFormulario();
 
-		FacesContext.getCurrentInstance().addMessage("", 
-				new FacesMessage("Filial Gravado com Sucesso!"));
+		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Filial Gravado com Sucesso!"));
 		atualizarLista();
 	}
 
-	public void editarFilial() {	
+	public void editarFilial() {
+		if(formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
+			return;
+		}
+		
+		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.editar(endereco);
-		filial.setCnpj(formatarCNPJ(filial.getCnpj()));
+		filial.setCnpj(formatarEValidarCNPJ(filial.getCnpj()));
 		filial.setEndereco(endereco);
 		filialService.editar(filial);
 
-		FacesContext.getCurrentInstance().addMessage("", 
-				new FacesMessage("Filial editado com Sucesso!"));
+		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Filial editado com Sucesso!"));
 		atualizarLista();
 		limparFormulario();
 	}
-	
+
 	public void carregarFilial(Filial f) {
 		filial = f;
 		endereco = enderecoService.obterPorId(f.getEndereco().getId());
 		edicao = true;
 	}
 
-	/*
-	public void apagarFilial(Filial f) {
-		filialService.remover(f);
-		enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
-		atualizarLista();
-		limparFormulario();
+	private void limparFormulario() {
+		filial = new Filial();
+		endereco = new Endereco();
+		edicao = false;
 	}
-	*/
-	
-    private void limparFormulario() {
-        filial = new Filial();
-        endereco = new Endereco();
-        edicao = false;
-    }
-    
-    public String formatarCNPJ(String cnpj) {
-        cnpj = cnpj.replaceAll("[^0-9]", "");
 
-        return cnpj.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
-    }
+	public String formatarEValidarCNPJ(String cnpj) {
+		cnpj = cnpj.replaceAll("[^0-9]", "");
+
+		if (cnpj.length() != 14) {
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("CNPJ inválido!"));
+			return null;
+		}
+
+		return cnpj.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
+	}
+
+	public String formatarEValidarCEP(String cep) {
+		cep = cep.replaceAll("[^0-9]", "");
+
+		if (cep.length() != 8) {
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("CEP inválido!"));
+			return null;
+		}
+
+		return cep.replaceFirst("(\\d{5})(\\d{3})", "$1-$2");
+	}
 
 	public FilialService getFilialService() {
 		return filialService;

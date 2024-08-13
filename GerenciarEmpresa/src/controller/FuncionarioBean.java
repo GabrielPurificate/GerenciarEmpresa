@@ -32,7 +32,7 @@ public class FuncionarioBean {
 	private Boolean edicao = false;
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
-	private Long idFilial=0L;
+	private Long idFilial = 0L;
 
 	@PostConstruct
 	public void inicializar() {
@@ -45,8 +45,13 @@ public class FuncionarioBean {
 	}
 
 	public void gravarFuncionario() {
+		if (formatarEValidarCPF(funcionario.getCpf()) == null || formatarEValidarCEP(endereco.getCep()) == null) {
+			return;
+		}
+
+		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.criar(endereco);
-		funcionario.setCpf(formatarCPF(funcionario.getCpf()));
+		funcionario.setCpf(formatarEValidarCPF(funcionario.getCpf()));
 		funcionario.setEndereco(endereco);
 		Filial f = filialService.obterPorId(idFilial);
 		funcionario.setFilial(f);
@@ -54,14 +59,19 @@ public class FuncionarioBean {
 
 		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Funcionario criado com Sucesso!"));
 		atualizarLista();
-		
+
 		funcionario = new Funcionario();
 		endereco = new Endereco();
 	}
 
 	public void editarFuncionario() {
+		if (formatarEValidarCPF(funcionario.getCpf()) == null || formatarEValidarCEP(endereco.getCep()) == null) {
+			return;
+		}
+
+		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.editar(endereco);
-		funcionario.setCpf(formatarCPF(funcionario.getCpf()));
+		funcionario.setCpf(formatarEValidarCPF(funcionario.getCpf()));
 		funcionario.setEndereco(endereco);
 		Filial f = filialService.obterPorId(idFilial);
 		funcionario.setFilial(f);
@@ -69,7 +79,7 @@ public class FuncionarioBean {
 
 		FacesContext.getCurrentInstance().addMessage("", new FacesMessage("Funcionário Editado com Sucesso!"));
 		atualizarLista();
-		
+
 		funcionario = new Funcionario();
 		endereco = new Endereco();
 	}
@@ -80,25 +90,41 @@ public class FuncionarioBean {
 		idFilial = funcionario.getFilial().getId();
 		edicao = true;
 	}
-	
+
 	public void apagarFuncionario(Funcionario f) {
 		funcionarioService.remover(f);
 		enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
+		
 		atualizarLista();
 		limparFormulario();
 	}
-	
-	public String formatarCPF(String cpf) {
-	    cpf = cpf.replaceAll("[^0-9]", "");
 
-	    return cpf.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+	public String formatarEValidarCEP(String cep) {
+		cep = cep.replaceAll("[^0-9]", "");
+
+		if (cep.length() != 8) {
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("CEP inválido!"));
+			return null;
+		}
+
+		return cep.replaceFirst("(\\d{5})(\\d{3})", "$1-$2");
 	}
 
-	
+	public String formatarEValidarCPF(String cpf) {
+		cpf = cpf.replaceAll("[^0-9]", "");
+
+		if (cpf.length() != 11) {
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("CPF inválido!"));
+			return null;
+		}
+
+		return cpf.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+	}
+
 	private void limparFormulario() {
-        endereco = new Endereco();
-        edicao = false;
-    }
+		endereco = new Endereco();
+		edicao = false;
+	}
 
 	public FuncionarioService getFuncionarioService() {
 		return funcionarioService;

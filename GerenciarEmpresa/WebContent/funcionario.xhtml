@@ -12,23 +12,33 @@
 	<h:form id="funcionarioForm">
 		<h:panelGrid columns="2" cellpadding="5">
 			<h:outputLabel for="nome" value="Nome do Funcionário:" />
-			<h:inputText id="nome" value="#{funcionarioBean.funcionario.nome}"
-				required="true" />
+			<h:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" required="true" />
 
 			<h:outputLabel for="idade" value="Idade:" />
-			<h:inputText id="idade" value="#{funcionarioBean.funcionario.idade}"
-				required="true" />
+			<h:inputText id="idade" value="#{funcionarioBean.funcionario.idade}" required="true" />
 
 			<h:outputLabel for="cpf" value="CPF:" />
-			<h:inputText id="cpf" value="#{funcionarioBean.funcionario.cpf}"
-				required="true" maxlength="14"/>
+			<h:inputText id="cpf" value="#{funcionarioBean.funcionario.cpf}" required="true" maxlength="14" />
 
 			<h:outputLabel for="salario" value="Salario:" />
-			<h:inputText id="salario"
-				value="#{funcionarioBean.funcionario.salario}" required="true" />
+			<h:inputText id="salario" value="#{funcionarioBean.funcionario.salario}" required="true" />
+			
+			<h:outputLabel for="rua" value="Rua:" />
+			<h:inputText id="rua" value="#{funcionarioBean.endereco.rua}" required="true" />
 
+			<h:outputLabel for="numero" value="Número:" />
+			<h:inputText id="numero" value="#{funcionarioBean.endereco.numero}" required="true" />
+
+			<h:outputLabel for="bairro" value="Bairro:" />
+			<h:inputText id="bairro" value="#{funcionarioBean.endereco.bairro}" required="true" />
+
+			<h:outputLabel for="cidade" value="Cidade:" />
+			<h:inputText id="cidade" value="#{funcionarioBean.endereco.cidade}" required="true" />
+
+			<h:outputLabel for="cep" value="CEP:" />
+			<h:inputText id="cep" value="#{funcionarioBean.endereco.cep}" required="true" />
+			
 			<h:outputLabel for="filial" value="Filial:" />
-
 			<h:selectOneMenu id="filial" value="#{funcionarioBean.idFilial}"
 				required="true">
 
@@ -70,9 +80,29 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Salario</f:facet>
-				<h:outputText value="#{funcAtual.salario}" >
+				<h:outputText value="#{funcAtual.salario}">
 					<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
 				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Rua</f:facet>
+				<h:outputText value="#{funcAtual.endereco.rua}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Número</f:facet>
+				<h:outputText value="#{funcAtual.endereco.numero}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Bairro</f:facet>
+				<h:outputText value="#{funcAtual.endereco.bairro}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cidade</f:facet>
+				<h:outputText value="#{funcAtual.endereco.cidade}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CEP</f:facet>
+				<h:outputText value="#{funcAtual.endereco.cep}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Filial</f:facet>
