@@ -21,7 +21,7 @@
 
 			<h:outputLabel for="rua" value="Rua:" />
 			<h:inputText id="rua" value="#{filialBean.endereco.rua}"
-				required="true" />
+				required="true"  />
 
 			<h:outputLabel for="numero" value="Número:" />
 			<h:inputText id="numero" value="#{filialBean.endereco.numero}"
@@ -85,8 +85,6 @@
 				<f:facet name="header">Ações</f:facet>
 				<h:commandButton value="Editar"
 					action="#{filialBean.carregarFilial(filAtual)}" />
-				<h:commandButton value="Apagar"
-					action="#{filialBean.apagarFilial(filAtual)}" />
 			</h:column>
 		</h:dataTable>
 	</h:form>
