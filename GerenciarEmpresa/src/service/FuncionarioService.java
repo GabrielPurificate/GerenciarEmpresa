@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import model.Endereco;
 import model.Filial;
 import model.Funcionario;
 
@@ -90,7 +92,44 @@ public class FuncionarioService extends GenericService<Funcionario> {
 	    cQuery.select(funcionarioRoot);
 	    cQuery.where(cBuilder.equal(funcionarioRoot.get("filial"), filial));
 	    
+	    cQuery.orderBy(cBuilder.desc(funcionarioRoot.get("salario")));
+	    
 	    List<Funcionario> resultado = getEntityManager().createQuery(cQuery).getResultList();
+	    
+	    return resultado;
+	}
+	
+	public List<Funcionario> listarFuncionarioTodos(){
+		
+	    final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+	    final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+	    final Root<Funcionario> funcionarioRoot = cQuery.from(Funcionario.class);
+	    
+	    cQuery.select(funcionarioRoot);
+	    
+	    cQuery.orderBy(cBuilder.desc(funcionarioRoot.get("salario")));
+	    
+	    List<Funcionario> resultado = getEntityManager().createQuery(cQuery).getResultList();
+	    
+	    return resultado;
+	}
+	
+	public List<Funcionario> listarFuncionarioPorCidade(String cidade){
+		
+		final CriteriaBuilder cBuilder = getEntityManager().getCriteriaBuilder();
+	    final CriteriaQuery<Funcionario> cQuery = cBuilder.createQuery(Funcionario.class);
+	    final Root<Funcionario> funcionarioRoot = cQuery.from(Funcionario.class);
+	    List<Endereco> listaEndereco = new ArrayList<Endereco>();
+	    
+	    cQuery.select(funcionarioRoot);
+	    
+	    cQuery.orderBy(cBuilder.asc(funcionarioRoot.get("nome")));
+	    
+	    List<Funcionario> resultado = getEntityManager().createQuery(cQuery).getResultList();
+	    
+	    for(int i = 0; i <= resultado.size(); i++) {
+	    	
+	    }
 	    
 	    return resultado;
 	}

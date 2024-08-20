@@ -1,7 +1,6 @@
 package service;
 
 import javax.ejb.Stateless;
-
 import model.Endereco;
 
 @Stateless

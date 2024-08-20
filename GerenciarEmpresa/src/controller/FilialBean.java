@@ -12,8 +12,10 @@ import javax.faces.context.FacesContext;
 
 import model.Endereco;
 import model.Filial;
+import model.Funcionario;
 import service.EnderecoService;
 import service.FilialService;
+import service.FuncionarioService;
 
 @ViewScoped
 @ManagedBean
@@ -22,10 +24,13 @@ public class FilialBean {
 	private FilialService filialService;
 	@EJB
 	private EnderecoService enderecoService;
+	@EJB
+	private FuncionarioService funcionarioService;
 
 	private Filial filial;
 	private Endereco endereco;
 	private List<Filial> listaFilial = new ArrayList<Filial>();
+	private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
 	private Boolean edicao = false;
 
 	@PostConstruct
@@ -36,14 +41,29 @@ public class FilialBean {
 
 	private void atualizarLista() {
 		listaFilial = filialService.listar();
+		listaFuncionario = funcionarioService.listar();
+	}
 
+	public Boolean verificarFilial(Filial f) {
+		int cont = 0;
+		for (int i = 0; i <= listaFuncionario.size(); i++) {
+			if (f.getId() == listaFuncionario.get(i).getFilial().getId()) {
+				cont += 1;
+			}
+		}
+
+		if (cont > 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void gravarFilial() {
-		if(formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
+		if (formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
 			return;
 		}
-		
+
 		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.criar(endereco);
 		filial.setCnpj(formatarEValidarCNPJ(filial.getCnpj()));
@@ -57,10 +77,10 @@ public class FilialBean {
 	}
 
 	public void editarFilial() {
-		if(formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
+		if (formatarEValidarCEP(endereco.getCep()) == null || formatarEValidarCNPJ(filial.getCnpj()) == null) {
 			return;
 		}
-		
+
 		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.editar(endereco);
 		filial.setCnpj(formatarEValidarCNPJ(filial.getCnpj()));
@@ -82,6 +102,13 @@ public class FilialBean {
 		filial = new Filial();
 		endereco = new Endereco();
 		edicao = false;
+	}
+
+	public void apagarFilial(Filial f) {
+		filialService.remover(f);
+		enderecoService.remover(enderecoService.obterPorId(f.getEndereco().getId()));
+		atualizarLista();
+		limparFormulario();
 	}
 
 	public String formatarEValidarCNPJ(String cnpj) {
@@ -152,6 +179,14 @@ public class FilialBean {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Funcionario> getListaFuncionario() {
+		return listaFuncionario;
+	}
+
+	public void setListaFuncionario(List<Funcionario> listaFuncionario) {
+		this.listaFuncionario = listaFuncionario;
 	}
 
 }

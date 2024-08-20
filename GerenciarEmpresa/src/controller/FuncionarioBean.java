@@ -30,6 +30,8 @@ public class FuncionarioBean {
 	private Funcionario funcionario = new Funcionario();
 	private Endereco endereco = new Endereco();
 	private Boolean edicao = false;
+	private String cpfSave;
+	private String cidadePesquisa;
 	private List<Filial> listaFilial = new ArrayList<Filial>();
 	private List<Funcionario> listaFuncionario = new ArrayList<Funcionario>();
 	private Long idFilial = 0L;
@@ -38,10 +40,16 @@ public class FuncionarioBean {
 	public void inicializar() {
 		atualizarLista();
 		listaFilial = filialService.listar();
+		
 	}
 
 	private void atualizarLista() {
 		listaFuncionario = funcionarioService.listar();
+	}
+	
+	public void Filtrar() {
+		//listaFuncionario = funcionarioService.listarFuncionarioPorCidade(cidadePesquisa);
+		
 	}
 
 	public void gravarFuncionario() {
@@ -65,13 +73,14 @@ public class FuncionarioBean {
 	}
 
 	public void editarFuncionario() {
-		if (formatarEValidarCPF(funcionario.getCpf()) == null || formatarEValidarCEP(endereco.getCep()) == null) {
-			return;
+		
+		if(!funcionario.getCpf().equals(cpfSave)) {
+			FacesContext.getCurrentInstance().addMessage("", new FacesMessage("nao é possivel editar cpf"));
 		}
 
 		endereco.setCep(formatarEValidarCEP(endereco.getCep()));
 		enderecoService.editar(endereco);
-		funcionario.setCpf(formatarEValidarCPF(funcionario.getCpf()));
+		funcionario.setCpf(cpfSave);
 		funcionario.setEndereco(endereco);
 		Filial f = filialService.obterPorId(idFilial);
 		funcionario.setFilial(f);
@@ -86,6 +95,7 @@ public class FuncionarioBean {
 
 	public void carregarFuncionario(Funcionario f) {
 		funcionario = f;
+		cpfSave = f.getCpf();
 		endereco = f.getEndereco();
 		idFilial = funcionario.getFilial().getId();
 		edicao = true;
@@ -160,6 +170,22 @@ public class FuncionarioBean {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public String getCpfSave() {
+		return cpfSave;
+	}
+
+	public void setCpfSave(String cpfSave) {
+		this.cpfSave = cpfSave;
+	}
+
+	public String getCidadePesquisa() {
+		return cidadePesquisa;
+	}
+
+	public void setCidadePesquisa(String cidadePesquisa) {
+		this.cidadePesquisa = cidadePesquisa;
 	}
 
 	public void setEndereco(Endereco endereco) {

@@ -42,7 +42,6 @@
 			<h:selectOneMenu id="filial" value="#{funcionarioBean.idFilial}"
 				required="true">
 
-				<f:selectItem itemLabel="Todas as Filiais" itemValue="" />
 				<f:selectItems value="#{funcionarioBean.listaFilial}" var="filial"
 					itemLabel="#{filial.nome}" itemValue="#{filial.id}" />
 
@@ -57,9 +56,20 @@
 				rendered="#{funcionarioBean.edicao}" />
 
 			<h:button outcome="index" value="Voltar" />
+			
+			
 		</h:panelGrid>
 	</h:form>
-
+	
+	<h:form id="listarForm">
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel for="cidade" value="Filtrar por Cidade:" />
+			<h:inputText id="cidade" value="#{funcionarioBean.cidadePesquisa}" required="true" />
+			
+			<h:commandButton value="Filtrar" action="#{funcionarioBean.Filtrar()}" />
+		</h:panelGrid>
+	</h:form>
+	
 	<h:messages />
 
 	<h:form>

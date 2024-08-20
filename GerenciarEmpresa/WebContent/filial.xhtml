@@ -8,7 +8,7 @@
 	<title>Gerenciar Filial</title>
 </h:head>
 <body>
-	
+
 	<h:form id="filialForm">
 		<h:panelGrid columns="2" cellpadding="5">
 			<h:outputLabel for="nome" value="Nome da Filial:" />
@@ -17,11 +17,11 @@
 
 			<h:outputLabel for="cnpj" value="CNPJ:" />
 			<h:inputText id="cnpj" value="#{filialBean.filial.cnpj}"
-				required="true" maxlength="18"/>
+				required="true" maxlength="18" />
 
 			<h:outputLabel for="rua" value="Rua:" />
 			<h:inputText id="rua" value="#{filialBean.endereco.rua}"
-				required="true"  />
+				required="true" />
 
 			<h:outputLabel for="numero" value="Número:" />
 			<h:inputText id="numero" value="#{filialBean.endereco.numero}"
@@ -49,7 +49,7 @@
 	</h:form>
 
 	<h:messages />
-	
+
 	<h:form>
 		<h:dataTable value="#{filialBean.listaFilial}" var="filAtual"
 			border="1">
@@ -85,6 +85,8 @@
 				<f:facet name="header">Ações</f:facet>
 				<h:commandButton value="Editar"
 					action="#{filialBean.carregarFilial(filAtual)}" />
+				<h:commandButton value="Apagar"
+					action="#{filialBean.apagarFilial(filAtual)}" />
 			</h:column>
 		</h:dataTable>
 	</h:form>

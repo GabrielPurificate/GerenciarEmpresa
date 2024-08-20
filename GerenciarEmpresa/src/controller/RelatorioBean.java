@@ -50,7 +50,7 @@ public class RelatorioBean {
 	        listaFuncionarios = funcionarioService.listarFuncionariosPorSalario(salarioInicial, salarioFinal);
 	        
 	    } else {
-	        listaFuncionarios = funcionarioService.listar();
+	        listaFuncionarios = funcionarioService.listarFuncionarioTodos();
 	        
 	    }
 	}
